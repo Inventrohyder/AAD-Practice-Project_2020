@@ -22,12 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <provider
-            android:name=".AAD_ContentProvider"
-            android:authorities="com.inventrohyder.aad.provider"
-            android:enabled="true"
-            android:exported="false" />
     </application>
 
 </manifest>
