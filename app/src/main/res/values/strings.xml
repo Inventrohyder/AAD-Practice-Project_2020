@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AAD Practice Project 2020</string>
+    <string name="title_activity_main">Leader board</string>
+    <string name="tab_learning">Learning Leaders</string>
+    <string name="tab_skill">Skill IQ Leaders</string>
+    <string name="submit">Submit</string>
+</resources>
