@@ -5,9 +5,9 @@ public class Learner {
     private String country;
     private String badgeUrl;
 
-    private int hours;
+    private Integer hours;
 
-    private int score;
+    private Integer score;
 
     public String getName() {
         return name;
@@ -21,11 +21,11 @@ public class Learner {
         return badgeUrl;
     }
 
-    public int getHours() {
+    public Integer getHours() {
         return hours;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 }
