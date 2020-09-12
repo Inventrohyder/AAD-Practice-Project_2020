@@ -1,26 +1,26 @@
 package com.inventrohyder.aadpracticeproject2020.ui.main;
 
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
+
+import com.inventrohyder.aadpracticeproject2020.Learner;
+
+import java.util.List;
 
 public class PageViewModel extends ViewModel {
 
-    private MutableLiveData<Integer> mIndex = new MutableLiveData<>();
-    private LiveData<String> mText = Transformations.map(mIndex, new Function<Integer, String>() {
-        @Override
-        public String apply(Integer input) {
-            return "Hello world from section: " + input;
-        }
-    });
+    private GadsRepository mLearnerRepository;
 
-    public void setIndex(int index) {
-        mIndex.setValue(index);
+    public PageViewModel() {
+        mLearnerRepository = new GadsRepository();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+
+    public LiveData<List<Learner>> getLearnedLearners() {
+        return mLearnerRepository.getLearnedLearners();
+    }
+
+    public LiveData<List<Learner>> getSkilledLearners() {
+        return mLearnerRepository.getSkilledLearners();
     }
 }
