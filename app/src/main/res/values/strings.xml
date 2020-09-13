@@ -7,4 +7,5 @@
     <string name="learned_description">%1$d learning hours, %2$s</string>
     <string name="skilled_description">%1$d skill IQ score, %2$s</string>
     <string name="learner_image_banner">Learner Image Banner</string>
+    <string name="splash_screen_log_description">Splash Screen GADS logo</string>
 </resources>
