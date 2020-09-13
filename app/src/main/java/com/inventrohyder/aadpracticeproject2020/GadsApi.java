@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 
 public interface GadsApi {
 
-    @GET("/api/hours")
+    @GET("api/hours")
     Call<List<Learner>> getLearnedLearners();
 
     @GET("api/skilliq")
