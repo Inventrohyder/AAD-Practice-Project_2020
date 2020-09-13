@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.inventrohyder.aadpracticeproject2020.Learner;
 import com.inventrohyder.aadpracticeproject2020.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,6 +41,8 @@ class LearnerRecyclerViewAdapter extends RecyclerView.Adapter<LearnerRecyclerVie
         holder.mTxtView_learnerName.setText(learner.getName());
         holder.mTxtView_learnerCountry.setText(learner.getCountry());
 
+        Picasso.get().load(learner.getBadgeUrl()).into(holder.mImgView_learnerBanner);
+
     }
 
     @Override
@@ -50,12 +54,13 @@ class LearnerRecyclerViewAdapter extends RecyclerView.Adapter<LearnerRecyclerVie
 
         TextView mTxtView_learnerName;
         TextView mTxtView_learnerCountry;
+        ImageView mImgView_learnerBanner;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTxtView_learnerName = itemView.findViewById(R.id.learner_name);
-            mTxtView_learnerCountry = itemView.findViewById(R.id.learner_country);
-
+            mTxtView_learnerCountry = itemView.findViewById(R.id.learner_description);
+            mImgView_learnerBanner = itemView.findViewById(R.id.learner_image_banner);
         }
     }
 
