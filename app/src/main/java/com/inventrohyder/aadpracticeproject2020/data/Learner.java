@@ -1,4 +1,4 @@
-package com.inventrohyder.aadpracticeproject2020.ui.main;
+package com.inventrohyder.aadpracticeproject2020.data;
 
 public class Learner {
     private String name;

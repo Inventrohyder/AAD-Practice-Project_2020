@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.inventrohyder.aadpracticeproject2020.R;
+import com.inventrohyder.aadpracticeproject2020.data.Learner;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

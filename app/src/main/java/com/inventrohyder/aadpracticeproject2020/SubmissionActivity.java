@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.inventrohyder.aadpracticeproject2020.ui.main.GadsApi;
+import com.inventrohyder.aadpracticeproject2020.data.GadsApi;
 
 import java.util.Objects;
 

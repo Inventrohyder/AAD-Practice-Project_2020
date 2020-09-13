@@ -1,4 +1,4 @@
-package com.inventrohyder.aadpracticeproject2020.ui.main;
+package com.inventrohyder.aadpracticeproject2020.data;
 
 import android.util.Log;
 
@@ -15,7 +15,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-class GadsRepository {
+public class GadsRepository {
 
     String TAG = getClass().getSimpleName();
 
@@ -29,11 +29,11 @@ class GadsRepository {
 
     private LearnerCache mLearnerCache = new LearnerCache();
 
-    LiveData<List<Learner>> getLearnedLearners() {
+    public LiveData<List<Learner>> getLearnedLearners() {
         return getLearners(LearnerCache.LEARNED_CACHE);
     }
 
-    LiveData<List<Learner>> getSkilledLearners() {
+    public LiveData<List<Learner>> getSkilledLearners() {
         return getLearners(LearnerCache.SKILLED_CACHE);
     }
 
