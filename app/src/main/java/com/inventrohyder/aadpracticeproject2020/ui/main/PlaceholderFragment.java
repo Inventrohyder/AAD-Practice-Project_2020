@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -46,6 +47,8 @@ public class PlaceholderFragment extends Fragment {
         final RecyclerView recyclerView = root.findViewById(R.id.learners_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        final ProgressBar progressBar = root.findViewById(R.id.progressBar);
+
 
         assert getArguments() != null;
         String section = getArguments().getString(ARG_SECTION);
@@ -56,17 +59,23 @@ public class PlaceholderFragment extends Fragment {
             case ARG_SECTION_LEARNED:
                 pageViewModel.getLearnedLearners().observe(
                         getViewLifecycleOwner(),
-                        learners -> recyclerView.setAdapter(
-                                new LearnerRecyclerViewAdapter(learners, getContext())
-                        )
+                        learners -> {
+                            recyclerView.setAdapter(
+                                    new LearnerRecyclerViewAdapter(learners, getContext())
+                            );
+                            progressBar.setVisibility(View.GONE);
+                        }
                 );
                 break;
             case ARG_SECTION_SKILLED:
                 pageViewModel.getSkilledLearners().observe(
                         getViewLifecycleOwner(),
-                        learners -> recyclerView.setAdapter(
-                                new LearnerRecyclerViewAdapter(learners, getContext())
-                        )
+                        learners -> {
+                            recyclerView.setAdapter(
+                                    new LearnerRecyclerViewAdapter(learners, getContext())
+                            );
+                            progressBar.setVisibility(View.GONE);
+                        }
                 );
                 break;
         }
