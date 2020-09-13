@@ -18,20 +18,11 @@ import com.inventrohyder.aadpracticeproject2020.R;
  */
 public class PlaceholderFragment extends Fragment {
 
-    private static final String ARG_SECTION_NUMBER = "section_number";
     public static final String ARG_SECTION_LEARNED = "learned";
     public static final String ARG_SECTION_SKILLED = "skilled";
     private static final String ARG_SECTION = "section";
 
     private PageViewModel pageViewModel;
-
-    public static PlaceholderFragment newInstance(int index) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
 
     public static PlaceholderFragment newInstance(String section) {
         PlaceholderFragment fragment = new PlaceholderFragment();
