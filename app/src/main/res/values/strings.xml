@@ -15,4 +15,7 @@
     <string name="indicator_description">Success indicator icon</string>
     <string name="submit_not_successful">Project submission not successful</string>
     <string name="submit_successful">Project submitted successfully</string>
+    <string name="cancel">Cancel</string>
+    <string name="sumbission_question">Are you sure you want to submit your project?</string>
+    <string name="submission_title">Project Submission</string>
 </resources>

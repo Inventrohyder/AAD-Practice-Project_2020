@@ -2,6 +2,7 @@ package com.inventrohyder.aadpracticeproject2020;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -48,7 +50,6 @@ public class SubmissionActivity extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://docs.google.com/forms/d/e/")
-//                .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
 
         mGadsApi = retrofit.create(GadsApi.class);
@@ -67,57 +68,76 @@ public class SubmissionActivity extends AppCompatActivity {
 
         if (firstName.length() > 0 && lastName.length() > 0 && email.length() > 0 && link.length() > 0) {
 
-            LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_toast,
-                    findViewById(R.id.custom_toast_container));
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.sumbission_question)
+                    .setTitle(R.string.submission_title)
+                    .setPositiveButton(R.string.submit,
+                            (dialog, id) -> SubmissionActivity.this.sendProjectDetails(firstName, lastName, email, link))
+                    .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
+                    });
 
-            TextView txtSuccessIndicator = layout.findViewById(R.id.success_indicator_text);
+            // Create the AlertDialog object
+            builder.create();
+            builder.show();
 
-            ImageView imgSuccessIndicator = layout.findViewById(R.id.success_indicator);
+        }
+
+    }
+
+    private void sendProjectDetails(String firstName, String lastName, String email, String link) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast,
+                findViewById(R.id.custom_toast_container));
+
+        TextView txtSuccessIndicator = layout.findViewById(R.id.success_indicator_text);
+
+        ImageView imgSuccessIndicator = layout.findViewById(R.id.success_indicator);
 
 
-            mGadsApi.submitProject(firstName, lastName, email, link).enqueue(new Callback<Void>() {
+        mGadsApi.submitProject(firstName, lastName, email, link).enqueue(new Callback<Void>() {
 
-                @Override
-                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
 
-                    if (!response.isSuccessful()) {
-                        Log.d(TAG, "onResponse: Not Successful" + response.code());
-
-                        txtSuccessIndicator.setText(R.string.submit_not_successful);
-                        imgSuccessIndicator.setImageResource(R.drawable.ic_not_successful);
-
-                        showCustomToast(layout);
-
-                        return;
-                    }
-
-                    try {
-                        Log.i(TAG, "onResponse: Successful" + Objects.requireNonNull(response.body()).toString());
-                    } catch (Exception e) {
-                        Log.e(TAG, "onResponse: " + e.getMessage(), e);
-                    }
-
-                    txtSuccessIndicator.setText(R.string.submit_successful);
-                    imgSuccessIndicator.setImageResource(R.drawable.ic_success);
-
-                    showCustomToast(layout);
-
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                    Log.e(TAG, "onFailure: " + t.getMessage(), t);
+                if (!response.isSuccessful()) {
+                    Log.d(TAG, "onResponse: Not Successful" + response.code());
 
                     txtSuccessIndicator.setText(R.string.submit_not_successful);
                     imgSuccessIndicator.setImageResource(R.drawable.ic_not_successful);
 
                     showCustomToast(layout);
+
+                    return;
                 }
-            });
 
-        }
+                try {
+                    Log.i(TAG, "onResponse: Successful" + Objects.requireNonNull(response.body()).toString());
+                } catch (Exception e) {
+                    Log.e(TAG, "onResponse: " + e.getMessage(), e);
+                }
 
+                txtSuccessIndicator.setText(R.string.submit_successful);
+                imgSuccessIndicator.setImageResource(R.drawable.ic_success);
+
+                showCustomToast(layout);
+
+                new Handler().postDelayed(SubmissionActivity.this::finish, Toast.LENGTH_LONG * 1000);
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getMessage(), t);
+
+                txtSuccessIndicator.setText(R.string.submit_not_successful);
+                imgSuccessIndicator.setImageResource(R.drawable.ic_not_successful);
+
+                showCustomToast(layout);
+            }
+        });
     }
 
     private void showCustomToast(View layout) {
