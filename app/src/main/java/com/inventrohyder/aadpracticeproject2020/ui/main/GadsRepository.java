@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.inventrohyder.aadpracticeproject2020.Learner;
-
 import java.util.HashMap;
 import java.util.List;
 

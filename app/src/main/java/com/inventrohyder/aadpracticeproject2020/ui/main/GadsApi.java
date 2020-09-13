@@ -1,7 +1,5 @@
 package com.inventrohyder.aadpracticeproject2020.ui.main;
 
-import com.inventrohyder.aadpracticeproject2020.Learner;
-
 import java.util.List;
 
 import retrofit2.Call;

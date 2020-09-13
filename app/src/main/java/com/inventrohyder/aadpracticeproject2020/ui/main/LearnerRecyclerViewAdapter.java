@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.inventrohyder.aadpracticeproject2020.Learner;
 import com.inventrohyder.aadpracticeproject2020.R;
 import com.squareup.picasso.Picasso;
 
@@ -40,6 +39,28 @@ class LearnerRecyclerViewAdapter extends RecyclerView.Adapter<LearnerRecyclerVie
 
         holder.mTxtView_learnerName.setText(learner.getName());
         holder.mTxtView_learnerCountry.setText(learner.getCountry());
+
+        // If it is a learned learner
+        if (learner.getHours() != null) {
+            holder.mTxtView_learnerCountry.setText(
+                    mContext.getResources().getString(
+                            R.string.learned_description,
+                            learner.getHours(),
+                            learner.getCountry()
+                    )
+            );
+        }
+
+        // If it is a skilled learner
+        if (learner.getScore() != null) {
+            holder.mTxtView_learnerCountry.setText(
+                    mContext.getResources().getString(
+                            R.string.skilled_description,
+                            learner.getScore(),
+                            learner.getCountry()
+                    )
+            );
+        }
 
         Picasso.get().load(learner.getBadgeUrl()).into(holder.mImgView_learnerBanner);
 

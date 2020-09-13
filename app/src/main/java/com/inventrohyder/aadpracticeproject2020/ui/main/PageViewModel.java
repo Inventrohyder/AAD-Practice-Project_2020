@@ -3,8 +3,6 @@ package com.inventrohyder.aadpracticeproject2020.ui.main;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.inventrohyder.aadpracticeproject2020.Learner;
-
 import java.util.List;
 
 public class PageViewModel extends ViewModel {
