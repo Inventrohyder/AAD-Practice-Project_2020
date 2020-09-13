@@ -7,5 +7,9 @@
     <string name="learned_description">%1$d learning hours, %2$s</string>
     <string name="skilled_description">%1$d skill IQ score, %2$s</string>
     <string name="learner_image_banner">Learner Image Banner</string>
-    <string name="splash_screen_log_description">Splash Screen GADS logo</string>
+    <string name="log_description">GADS logo</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="project_on_github">Project on GitHub (link)</string>
 </resources>
