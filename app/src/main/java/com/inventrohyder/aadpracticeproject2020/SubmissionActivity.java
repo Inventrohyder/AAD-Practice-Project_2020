@@ -4,16 +4,34 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.inventrohyder.aadpracticeproject2020.ui.main.GadsApi;
 
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class SubmissionActivity extends AppCompatActivity {
+
+    private GadsApi mGadsApi;
+
+    private String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +45,15 @@ public class SubmissionActivity extends AppCompatActivity {
 
         final Button submitButton = findViewById(R.id.submit_project);
         submitButton.setOnClickListener(view -> submitProject());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://docs.google.com/forms/d/e/")
+//                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+
+        mGadsApi = retrofit.create(GadsApi.class);
+
+
     }
 
     private void submitProject() {
@@ -38,7 +65,67 @@ public class SubmissionActivity extends AppCompatActivity {
 
         String link = getTextIn(R.id.github_text_input);
 
+        if (firstName.length() > 0 && lastName.length() > 0 && email.length() > 0 && link.length() > 0) {
 
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.custom_toast,
+                    findViewById(R.id.custom_toast_container));
+
+            TextView txtSuccessIndicator = layout.findViewById(R.id.success_indicator_text);
+
+            ImageView imgSuccessIndicator = layout.findViewById(R.id.success_indicator);
+
+
+            mGadsApi.submitProject(firstName, lastName, email, link).enqueue(new Callback<Void>() {
+
+                @Override
+                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+
+                    if (!response.isSuccessful()) {
+                        Log.d(TAG, "onResponse: Not Successful" + response.code());
+
+                        txtSuccessIndicator.setText(R.string.submit_not_successful);
+                        imgSuccessIndicator.setImageResource(R.drawable.ic_not_successful);
+
+                        showCustomToast(layout);
+
+                        return;
+                    }
+
+                    try {
+                        Log.i(TAG, "onResponse: Successful" + Objects.requireNonNull(response.body()).toString());
+                    } catch (Exception e) {
+                        Log.e(TAG, "onResponse: " + e.getMessage(), e);
+                    }
+
+                    txtSuccessIndicator.setText(R.string.submit_successful);
+                    imgSuccessIndicator.setImageResource(R.drawable.ic_success);
+
+                    showCustomToast(layout);
+
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    Log.e(TAG, "onFailure: " + t.getMessage(), t);
+
+                    txtSuccessIndicator.setText(R.string.submit_not_successful);
+                    imgSuccessIndicator.setImageResource(R.drawable.ic_not_successful);
+
+                    showCustomToast(layout);
+                }
+            });
+
+        }
+
+    }
+
+    private void showCustomToast(View layout) {
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
     }
 
     @SuppressLint("ClickableViewAccessibility")
