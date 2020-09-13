@@ -1,6 +1,8 @@
 package com.inventrohyder.aadpracticeproject2020;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.StringRes;
 import androidx.fragment.app.FragmentActivity;
@@ -15,12 +17,19 @@ public class MainActivity extends FragmentActivity {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_learning, R.string.tab_skill};
-    private final String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final Button submitButton = findViewById(R.id.submit);
+
+        submitButton.setOnClickListener(
+                view -> startActivity(
+                        new Intent(getApplicationContext(), SubmissionActivity.class)
+                )
+        );
 
         // Instantiate a ViewPager2 and a PagerAdapter.
         /*
