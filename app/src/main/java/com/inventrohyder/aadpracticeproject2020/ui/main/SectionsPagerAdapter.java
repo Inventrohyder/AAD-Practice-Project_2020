@@ -1,7 +1,9 @@
 package com.inventrohyder.aadpracticeproject2020.ui.main;
 
 import android.content.Context;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -18,6 +20,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_learning, R.string.tab_skill};
+    final String TAG = getClass().getSimpleName();
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -25,11 +28,19 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        if (position == 0) {
+            return PlaceholderFragment.newInstance(PlaceholderFragment.ARG_SECTION_LEARNED);
+        } else if (position == 1) {
+            return PlaceholderFragment.newInstance(PlaceholderFragment.ARG_SECTION_SKILLED);
+        }
+
+        Log.d(TAG, "getItem: Invalid Position");
+        return new PlaceholderFragment();
     }
 
     @Nullable
